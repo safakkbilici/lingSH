@@ -39,10 +39,16 @@ while true; do
     if [[ $input == 'c' ]]
     then
 	echo "For upper-case to lower-case, type 'u2l' : "
+	echo "For lower-case to upper-case, type 'l2u' : "
 	read -r ul
 	if [[ $ul == "u2l" ]]
 	then
-	    tr "[:upper:]" "[:lower:]" < $1 > "$1$i"txt
+	    tr "[:upper:]" "[:lower:]" < $1 > "$1$i".txt
+	    i=i+1
+	fi
+	if [[ $ul == "l2u" ]]
+	then
+	    tr "[:upper:]" "[:lower:]" < $1 > "$1$i".txt
 	    i=i+1
 	fi
     fi
