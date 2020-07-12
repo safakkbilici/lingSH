@@ -31,7 +31,7 @@ while true; do
     read -r input
     if [[ $input == "pwdf" ]]
     then
-	echo "You are using $file"
+	echo "[[You are using $file]]"
     fi
     
     if [[ $input == "cf" ]]
@@ -58,7 +58,7 @@ while true; do
 		   j=j+1
 	       else
 		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r > "$j.txt"
-		   echo "Printed to $j.txt"
+		   echo "[[Printed to $j.txt]]"
 		   j=j+1
 	       fi
 	else
@@ -73,7 +73,7 @@ while true; do
 		   j=j+1
 	    else
 		tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  | sort | uniq --count | sort -n -r > "$j.txt"
-		echo "Printed to $j.txt"
+		echo "[[Printed to $j.txt]]"
 		j=j+1
 	    fi
 	fi
