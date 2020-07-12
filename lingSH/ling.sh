@@ -18,12 +18,27 @@ then
 fi
 i=0
 j=0
+file=$1
 while true; do
     echo "For frequency listing, type : 'f'"
     echo "For tokenizing, press : 't'"
     echo "For translating, press: 'c'"
+    echo "For continue with another/changed file, type: 'cf'"
+    echo "To see which file is used, type: 'pwdf'"
     echo "Input: "
     read -r input
+    if [[ $input == "pwdf" ]]
+    then
+	echo $file
+    fi
+    
+    if [[ $input == "cf" ]]
+    then
+	echo "Type your file's name: "
+	read -r newfile
+	file=$newfile
+    fi
+    
     if [[ $input == "f" ]]
     then
 	echo "For case-sensitive searching, type 'c': "
@@ -36,10 +51,10 @@ while true; do
 	       then
 		   echo "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
 		   read -r regex
-		   tr -sc 'A-Za-z' '\n' < $1 | sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
+		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
 		   j=j+1
 	       else
-		   tr -sc 'A-Za-z' '\n' < $1 | sort | uniq --count | sort -n -r > "$j.txt"
+		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r > "$j.txt"
 		   j=j+1
 	       fi
 	else
@@ -49,10 +64,10 @@ while true; do
 	       then
 		   echo "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
 		   read -r regex
-		   tr -sc 'A-Za-z' '\n' < $1 | tr 'A-Z' 'a-z'  |sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
+		   tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  |sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
 		   j=j+1
 	    else
-		tr -sc 'A-Za-z' '\n' < $1 | tr 'A-Z' 'a-z'  | sort | uniq --count | sort -n -r > "$j.txt"
+		tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  | sort | uniq --count | sort -n -r > "$j.txt"
 		j=j+1
 	    fi
 	fi
