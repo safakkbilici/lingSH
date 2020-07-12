@@ -30,6 +30,10 @@ while true; do
     echo "To see which file is used, type: 'pwdf'"
     printf "Input: "
     read -r input
+    if [[ $input == "quit" ]]
+    then
+	exit 1
+    fi   
     if [[ $input == "pwdf" ]]
     then
 	echo "[[You are using $file]]"
