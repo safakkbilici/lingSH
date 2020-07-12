@@ -43,12 +43,12 @@ while true; do
 	read -r ul
 	if [[ $ul == "u2l" ]]
 	then
-	    tr "[:upper:]" "[:lower:]" < $1 > "$1$i".txt
+	    tr "[:upper:]" "[:lower:]" < $1 > "$i$1"
 	    i=i+1
 	fi
 	if [[ $ul == "l2u" ]]
 	then
-	    tr "[:upper:]" "[:lower:]" < $1 > "$1$i".txt
+	    tr "[:upper:]" "[:lower:]" < $1 > "$i$1"
 	    i=i+1
 	fi
     fi
