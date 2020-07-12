@@ -11,11 +11,12 @@ then
    echo "Argument Error: Give your ~*.txt~ file as an argumet for analyzing"
 fi
 
-test ! -f $1 && echo "Type-Exist Error: This file does not exist. You must pass a ~*.txt~ file as an argument"
+test ! -f $1 && echo "Type-Exist Error: This file does not exist. You must pass a ~*.txt~ file as an argument" && exit 1
 
 if [[ $1 != *.txt ]]
 then
     echo "Type-Exist Error: You must pass a ~*.txt file as an argument. This file is not a .txt file"
+    exit 1
 fi
 i=0
 j=0
@@ -55,11 +56,11 @@ while true; do
 		   read -r regex
 		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
 		   echo "[[Printed to $j.txt]]"
-		   j=j+1
+		   let "j=j+1"
 	       else
 		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r > "$j.txt"
 		   echo "[[Printed to $j.txt]]"
-		   j=j+1
+		   let "j=j+1"
 	       fi
 	else
 	    printf "For listing specific words'/word's frequency listing, type 'r': "
@@ -70,11 +71,11 @@ while true; do
 		   read -r regex
 		   tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  |sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
 		   echo "[[Printed to $j.txt]]"
-		   j=j+1
+		   let "j=j+1"
 	    else
 		tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  | sort | uniq --count | sort -n -r > "$j.txt"
 		echo "[[Printed to $j.txt]]"
-		j=j+1
+		let "j=j+1"
 	    fi
 	fi
     fi
@@ -87,13 +88,13 @@ while true; do
 	then
 	    tr "[:upper:]" "[:lower:]" < $1 > "$i$file"
 	    echo "[[Printed to $i$file]]"
-	    i=i+1
+	    let "i=i+1"
 	fi
 	if [[ $ul == "l2u" ]]
 	then
 	    tr "[:lower:]" "[:upper:]" < $1 > "$i$file"
 	    echo "[[Printed to $i$file]]"
-	    i=i+1
+	    let "i=i+1"
 	fi
     fi
     echo ""
