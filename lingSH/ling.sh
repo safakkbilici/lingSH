@@ -1,9 +1,10 @@
-echo "--------------------------------------------------------------------------------------------------------"
+echo "----------------------------------------------------------------------------------------------------------"
 echo "Welcome to the text data analysis API, lingSH."
-echo "lingSH provides a large text analysis tools."
-echo "LingSH creates and writes a file your specific data analysis choices in lingSH.txt"
-echo "If you change a file, (i.e, punctuation marks to '\n' translation), the software will use changed file"
-echo "--------------------------------------------------------------------------------------------------------"
+echo "- lingSH provides a large text analysis tools."
+echo "- LingSH creates and writes a file your specific data analysis choices in lingSH.txt."
+echo "- If you change a file, (i.e, punctuation marks to '\n' translation), the software will use changed file."
+echo "- Reverse for conditional statements is 'rev'."
+echo "----------------------------------------------------------------------------------------------------------"
 
 if [ "$#" -ne 1 ]
 then
@@ -20,39 +21,40 @@ i=0
 j=0
 file=$1
 while true; do
-    echo "For frequency listing, type : 'f'"
-    echo "For tokenizing, press : 't'"
-    echo "For translating, press: 'c'"
+    echo "For frequency listing, type : 'freq'"
+    echo "For tokenizing, type : 'tok'"
+    echo "For translating, type: 'tr'"
+    echo "For stemming, type: 'stem'"
     echo "For continue with another/changed file, type: 'cf'"
     echo "To see which file is used, type: 'pwdf'"
-    echo "Input: "
+    printf "Input: "
     read -r input
     if [[ $input == "pwdf" ]]
     then
-	echo $file
+	echo "You are using $file"
     fi
     
     if [[ $input == "cf" ]]
     then
-	echo "Type your file's name: "
+	printf "Type your file's name: "
 	read -r newfile
 	file=$newfile
     fi
     
-    if [[ $input == "f" ]]
+    if [[ $input == "freq" ]]
     then
-	echo "For case-sensitive searching, type 'c': "
+	printf "For case-sensitive searching, type 'c': "
 	read -r case
 	if [[ $case == 'c' ]]
 	   then
-	       echo "For listing specific words'/word's frequency listing, type 'r' :"
+	       printf "For listing specific words'/word's frequency listing, type 'r': "
 	       read -r regex
 	       if [[ $regex == 'r' ]]
 	       then
-		   echo "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
+		   printf "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
 		   read -r regex
 		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
-		   echo "Printed to $j.txt"
+		   echo "[[Printed to $j.txt]]"
 		   j=j+1
 	       else
 		   tr -sc 'A-Za-z' '\n' < $file | sort | uniq --count | sort -n -r > "$j.txt"
@@ -60,14 +62,14 @@ while true; do
 		   j=j+1
 	       fi
 	else
-	    echo "For listing specific words'/word's frequency listing, type 'r' :"
+	    printf "For listing specific words'/word's frequency listing, type 'r': "
 	    read -r regex
 	    if [[ $regex == 'r' ]]
 	       then
-		   echo "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
+		   printf "Type its RegEx format (i.e, '\<[Aa]nd\>'): "
 		   read -r regex
 		   tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  |sort | uniq --count | sort -n -r | grep $regex > "$j.txt"
-		   echo "Printed to $j.txt"
+		   echo "[[Printed to $j.txt]]"
 		   j=j+1
 	    else
 		tr -sc 'A-Za-z' '\n' < $file | tr 'A-Z' 'a-z'  | sort | uniq --count | sort -n -r > "$j.txt"
@@ -77,21 +79,20 @@ while true; do
 	fi
     fi
     
-    if [[ $input == 'c' ]]
+    if [[ $input == 'tr' ]]
     then
-	echo "For upper-case to lower-case, type 'u2l' : "
-	echo "For lower-case to upper-case, type 'l2u' : "
+	printf "For [upper/lower] case translation, type [u2l/l2u]: "
 	read -r ul
 	if [[ $ul == "u2l" ]]
 	then
 	    tr "[:upper:]" "[:lower:]" < $1 > "$i$file"
-	    echo "Printed to $i$file"
+	    echo "[[Printed to $i$file]]"
 	    i=i+1
 	fi
 	if [[ $ul == "l2u" ]]
 	then
 	    tr "[:lower:]" "[:upper:]" < $1 > "$i$file"
-	    echo "Printed to $i$file"
+	    echo "[[Printed to $i$file]]"
 	    i=i+1
 	fi
     fi
