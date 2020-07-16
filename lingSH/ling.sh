@@ -86,19 +86,37 @@ while true; do
     
     if [[ $input == 'tr' ]]
     then
-	printf "For [upper/lower] case translation, type [u2l/l2u]: "
+	echo "For [upper/lower] case translation, type: [u2l/l2u] "
+	echo "For translate punctuations into new line, type: n "
+	echo "For customize your translation type: c"
+	printf "Input: "
 	read -r ul
 	if [[ $ul == "u2l" ]]
 	then
-	    tr "[:upper:]" "[:lower:]" < $1 > "$i$file"
+	    tr "[:upper:]" "[:lower:]" < $file > "$i$file"
 	    echo "[[Printed to $i$file]]"
 	    let "i=i+1"
 	fi
 	if [[ $ul == "l2u" ]]
 	then
-	    tr "[:lower:]" "[:upper:]" < $1 > "$i$file"
+	    tr "[:lower:]" "[:upper:]" < $file > "$i$file"
 	    echo "[[Printed to $i$file]]"
 	    let "i=i+1"
+	fi
+	if [[ $ul == "n" ]]
+	then
+	    tr -sc 'A-Za-z' '\n' < $file > "$i$file"
+	    let "i=i+1"
+	    echo "[[Printed to $i$file]]"
+	fi
+	if [[ $ul == "c" ]]
+	then  
+	    printf "Find: "
+	    read -r find
+	    printf "Change with: "
+	    read -r change
+	    tr '$find' '$change' < $file > "$i$file"
+	    echo "[[Printed to $i$file]]"
 	fi
     fi
     echo ""
