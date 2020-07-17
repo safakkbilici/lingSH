@@ -122,12 +122,23 @@ while true; do
     fi
     if [[ $input == "tok" ]]
     then
-	tr 'A-Z' 'a-z' < $file | tr '[:space:]' '\n' | cat b.txt | tr -d '[1234567890*.!?,-;:"<>)(]~' | sort | uniq > "$i$file"
+	tr 'A-Z' 'a-z' < $file | tr '[:space:]' '\n' | cat b.txt | tr -d '[1234567890*.!?,-;:"<>)(~]' | sort | uniq > "$i$file"
 	echo "[[Printed to $i$file]]"
 	let "i=i+1"
     fi
-    
-
     echo ""
+    if [[ $input == "stem" ]]
+    then
+	echo "Warning: Your file must be tokenized file!"
+	echo "For Porter's Algorithm, type: 'pa'"
+	read -r stem
+	if[[ $stem == "pa" ]]
+	then
+	    cat $file | tr -d [s]$ | sort | uniq > "$i$file"
+	    let "i=i+1"
+	    # porter's algorithm will be implemented
+	fi
+    fi
+    
 done
 
