@@ -131,14 +131,15 @@ while true; do
     then
 	echo "Warning: Your file must be tokenized file!"
 	echo "For Porter's Algorithm, type: 'pa'"
+	printf "Input: "
 	read -r stem
-	if[[ $stem == "pa" ]]
+	if [[ $stem == "pa" ]]
 	then
-	    cat $file | tr -d [s]$ | sort | uniq > "$i$file"
+	    cat $file | tr -d [s]$ | sort | uniq | tr -d '\es$' | sort | uniq  > "$i$file"
+	    echo "[[Printed to $i$file]]"
 	    let "i=i+1"
 	    # porter's algorithm will be implemented
 	fi
     fi
-    
 done
 
