@@ -117,8 +117,17 @@ while true; do
 	    read -r change
 	    tr '$find' '$change' < $file > "$i$file"
 	    echo "[[Printed to $i$file]]"
+	    let "i=i+1" 
 	fi
     fi
+    if [[ $input == "tok" ]]
+    then
+	tr 'A-Z' 'a-z' < $file | tr '[:space:]' '\n' | cat b.txt | tr -d '[1234567890*.!?,-;:"<>)(]~' | sort | uniq > "$i$file"
+	echo "[[Printed to $i$file]]"
+	let "i=i+1"
+    fi
+    
+
     echo ""
 done
 
